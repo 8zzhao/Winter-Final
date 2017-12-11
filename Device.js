@@ -7,7 +7,7 @@ function Device(t,ma,c){
     this.milliAmps=ma;
     this.capacity=c;
     this.juice=1;
-    this.state="off"
+    this.state="off";
     this.rate = [0.0015,0.0235,0.23];
 
     //Instance Functions
@@ -35,18 +35,40 @@ function Device(t,ma,c){
         }
     };
 
+    this.use = function(min){
+        let time = min/60;
+        let output;
+        if(this.state == "off"){
+             output = 1 - this.rate[0];
+        }
+        if(this.state == "idle"){
+             output = 1 - this.rate[1];
+        }
+        if(this.state == "active"){
+             output = 1 - this.rate[2];
+        }
+        this.juice= this.juice - output*time;
+        }
+        if (this.juice < 0){
+            this.juice = 0;
+        }
+    };
+
+
+
+    this.charge = function(min){
     let charge = (this.millAmps / this.capacity);
     let time = min / 60;
-    this.charge = function(min){
+    let output;
         //adds more electricity to the device's juice depending on its state
         if(this.state == "off"){
-            let output = 1 - this.rate[0];
+             output = 1 - this.rate[0];
         }
         else if(this.state =="idle"){
-            let output = 1-this.rate[1];
+             output = 1-this.rate[1];
         }
         else if(this.state == "active"){
-            let output = 1 - this.rate[2];
+             output = 1 - this.rate[2];
         }
         this.juice = this.juice + charge*output*time;
         //resets juice to 1 if it has exceeded 1
