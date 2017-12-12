@@ -11,6 +11,10 @@ function Device(t,ma,c){
     this.rate = [0.0015,0.0235,0.23];
 
     //Instance Functions
+this.power = function(){
+    return this.juice;
+};
+
     this.on = function(){
         if(this.state == "off" && this.juice >0){
            this.state = "idle";
@@ -48,7 +52,7 @@ function Device(t,ma,c){
              output = 1 - this.rate[2];
         }
         this.juice= this.juice - output*time;
-        }
+
         if (this.juice < 0){
             this.juice = 0;
         }
@@ -81,6 +85,23 @@ function Device(t,ma,c){
 }//end of the device declaration
 
 //defines the testing code.
-function main(){}
+function main(){
+    let flemphone = new Device("phone",3000,10000);
+    console.log(flemphone.power());
+    flemphone.on();
+    flemphone.wake();
+    flemphone.use(90);
+    console.log(flemphone.power());
+    flemphone.sleep();
+    flemphone.use(300);
+    console.log(flemphone.power());
+    flemphone.off();
+    flemphone.use(300);
+    console.log(flemphone.power());
+    flemphone.charge(60);
+    console.log(flemphone.power());
+    flemphone.charge(1000);
+    console.log(flemphone.power());
+}
 //runs the testing code.
 main();
