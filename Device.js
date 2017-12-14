@@ -61,7 +61,7 @@ this.power = function(){
 
 
     this.charge = function(min){
-    let charge = (this.millAmps / this.capacity);
+    let charge = (this.milliAmps / this.capacity);
     let time = min / 60;
     let output;
         //adds more electricity to the device's juice depending on its state
@@ -105,3 +105,4 @@ function main(){
 }
 //runs the testing code.
 main();
+module.exports = Device;
