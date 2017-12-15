@@ -43,15 +43,15 @@ this.power = function(){
         let time = min/60;
         let output;
         if(this.state == "off"){
-             output = 1 - this.rate[0];
+             output = this.rate[0];
         }
         if(this.state == "idle"){
-             output = 1 - this.rate[1];
+             output = this.rate[1];
         }
         if(this.state == "active"){
-             output = 1 - this.rate[2];
+             output = this.rate[2];
         }
-        this.juice= this.juice - output*time;
+        this.juice= this.juice - (output*time);
 
         if (this.juice < 0){
             this.juice = 0;

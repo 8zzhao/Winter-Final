@@ -10,7 +10,7 @@ function ChargingDock(){
 
 //Instance Fucntions
     this.plug = function(dvc){
-        for(l=0; l<=this.leds.length; l++){
+        for(let l=0; l<this.leds.length; l++){
             if (this.leds[l] == "red"){
                 this.ports[l] = dvc;
             }
@@ -18,7 +18,7 @@ function ChargingDock(){
                 this.leds[l] = "yellow";
             }
             else if(dvc.juice >= 0.99){
-                this.leds = "green";
+                this.leds[l] = "green";
             }
         }
 
@@ -26,7 +26,7 @@ function ChargingDock(){
     };
 
     this.unplug = function(dvcIdx){
-            if (this.leds[dvcIdx] == "yellow" || "green"){
+            if (this.leds[dvcIdx] == "yellow" || this.leds[dvcIdx] == "green"){
                 let temp = this.ports[dvcIdx];
                 this.ports[dvcIdx] = undefined;
                 this.leds[dvcIdx] = "red";
@@ -52,7 +52,7 @@ function ChargingDock(){
 //defines the testing code
 function main(){
     let cd = new ChargingDock();
-
+    console.log(cd);
    let d1 = new Device("phone",3000,10000);
    let d2 = new Device("laptop",3000,15000);
    let d3 = new Device("laptop",5000,15000);
@@ -67,11 +67,12 @@ function main(){
    cd.plug(d2);
    cd.plug(d3);
    cd.plug(d4);
-
+   console.log(cd);
    cd.chargeAll(60);
-
+   console.log(cd);
    cd.unplug(0);
    cd.unplug(1);
+   console.log(cd);
 }
 
 //runs the main code
